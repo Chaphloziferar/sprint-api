@@ -2,6 +2,9 @@ import env from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 
+// Importing the routes
+import authRoutes from './routes/auth.routes';
+
 // Initialize the app
 env.config();
 const app = express();
@@ -15,7 +18,10 @@ app.use(express.json());
 
 // Routes
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send('Sprint API');
 });
+
+// Routes Middleware
+app.use('/api/auth', authRoutes);
 
 export default app;
