@@ -1,5 +1,6 @@
 import env from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 import morgan from 'morgan';
 
 // Importing the routes
@@ -15,6 +16,7 @@ app.set('port', process.env.PORT || 3000);
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.get('/', (req, res) => {
