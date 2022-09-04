@@ -19,6 +19,12 @@ const userSchema = mongoose.Schema({
         required: true,
         min: 6,
         max: 1024
+    },
+    role: {
+        type: String,
+        required: true,
+        min: 4,
+        max: 255
     }
 }, {
     timestamps: true,
