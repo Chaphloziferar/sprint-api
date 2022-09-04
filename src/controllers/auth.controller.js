@@ -25,6 +25,7 @@ const signUp = async (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: hashedPassword,
+        role: req.body.role
     });
 
     try {
@@ -48,7 +49,7 @@ const signIn = async (req, res) => {
     const validPass = await User.comparePassword(req.body.password, user.password);
     if (!validPass) return res.status(400).send('Username or password is wrong');
 
-    return res.status(200).json({user: user, token: createToken(user)});
+    return res.status(200).json({role: user.role, token: createToken(user)});
 }
 
 const renewUserToken = async (req, res) => {

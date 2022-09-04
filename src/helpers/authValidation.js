@@ -12,6 +12,10 @@ const signUpValidation = (data) => {
             .email(),
         password: Joi.string()
             .min(6)
+            .required(),
+        role: Joi.string()
+            .valid('admin', 'user')
+            .min(4)
             .required()
     });
 
