@@ -4,7 +4,7 @@ import { signUpValidation, signInValidation } from "../helpers/authValidation";
 
 const createToken = (user) => {
     return jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN
+        expiresIn: 60 * 60 * 24 // 24 hours
     });
 }
 
@@ -52,10 +52,14 @@ const signIn = async (req, res) => {
     return res.status(200).json({role: user.role, token: createToken(user)});
 }
 
-const renewUserToken = async (req, res) => {
-    return res.status(200).json({user: req.user.username, token: createToken(req.user)});
+const renewToken = async (req, res) => {
+    // Get the user
+    const user = await User.findById(req.userId, {password: 0});
+    if (!user) return res.status(400).send('No user found');
+
+    return res.status(200).json({role: user.role, token: createToken(user)});
 }
 
 exports.signUp = signUp;
 exports.signIn = signIn;
-exports.renewUserToken = renewUserToken;
+exports.renewToken = renewToken;
